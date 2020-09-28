@@ -1,3 +1,4 @@
+#modified from https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-troubleshoot#sysprep-command-windows
 Write-Output '>>> Waiting for GA Service (RdAgent) to start ...'
 while ((Get-Service RdAgent).Status -ne 'Running') { Start-Sleep -s 5 }
 Write-Output '>>> Waiting for GA Service (WindowsAzureTelemetryService) to start ...'
