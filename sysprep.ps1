@@ -9,17 +9,12 @@ Write-Output '>>> Sysprepping VM ...'
 if( Test-Path $Env:SystemRoot\system32\Sysprep\unattend.xml ) {
   Remove-Item $Env:SystemRoot\system32\Sysprep\unattend.xml -Force
 }
+
+# use the unattend.xml provided by cloudbase-init
 $unattendedXml = "$ENV:ProgramFiles\Cloudbase Solutions\Cloudbase-Init\conf\Unattend.xml"
 Write-Output $unattendedXml
+ls $unattendedXml
 & $Env:SystemRoot\System32\Sysprep\Sysprep.exe /oobe /generalize /mode:vm /quit /quiet /unattend:$unattendedXml
-
-#try waiting for sysprep to finish
-while($true) {
-  $imageState = Get-process "sysprep" 
-
-  if ($imageState) { Write-Output "found" } else { break }
-  Start-Sleep -s 5
-}
 
 # standard wait as packer docs describe
 while($true) {
@@ -29,14 +24,4 @@ while($true) {
   Start-Sleep -s 5
 }
 
-#try waiting for sysprep to finish
-while($true) {
-  $imageState = Get-process "sysprep" 
-
-  if ($imageState) { Write-Output "found" } else { break }
-  Start-Sleep -s 6
-}
-
-#try waiting for sysprep to finish
-Start-Sleep -s 1200
 Write-Output '>>> Sysprep complete ...'

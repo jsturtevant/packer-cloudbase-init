@@ -64,6 +64,17 @@
             "destination": "c:\\Program files\\Cloudbase Solutions\\Cloudbase-Init\\conf\\cloudbase-init-unattend.conf"
         },   
         {
+            "type": "file",
+            "source": "cloudbase-init.conf",
+            "destination": "c:\\Program files\\Cloudbase Solutions\\Cloudbase-Init\\conf\\cloudbase-init.conf"
+        }, 
+        {
+            "elevated_user": "packer",
+            "elevated_password": "{{.WinRMPassword}}",
+            "type": "powershell",
+            "script": "setupcomplete.ps1"
+        },
+        {
             "elevated_user": "packer",
             "elevated_password": "{{.WinRMPassword}}",
             "type": "powershell",
